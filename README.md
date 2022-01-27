@@ -6,5 +6,5 @@
 
 
 ### Steps:
-* Change details in "Input Details" section to your own
+* Change details in "Input Details" section to your own   (lines 77 - 85)
 * Run register.py
