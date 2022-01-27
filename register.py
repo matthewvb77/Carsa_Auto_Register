@@ -18,9 +18,15 @@ weekend_times = ["7:00 AM - 8:45 AM", "9:00 AM - 10:45 AM", "11:00 AM - 12:45 PM
                  "3:00 PM - 4:45 PM", "5:00 PM - 6:45 PM", "7:00 PM - 8:45 PM"]
 
 
-def register(username, password, day_r, time_r):
-    # go to carsa booking page
-    driver = webdriver.Chrome()
+def register(username, password, day_r, time_r, headless):
+    if headless:
+        options = Options()
+        options.add_argument('--headless')
+        options.add_argument('--disable-gpu')
+        driver = webdriver.Chrome(options=options)
+    else:
+        driver = webdriver.Chrome()
+
     driver.get("https://activeliving.uvic.ca/Program/GetProducts?classification=f3a12a34-c536-4b62-b9dc-c1f09c41e8b0")
 
     # accept cookie popup
@@ -72,8 +78,10 @@ def main():
     netlinkid = "example_netlink"
     password = "example-password"
     day_r = "Friday"
-    date_r = "28-01-2022"
+    date_r = "dd-mm-yyyy"
     time_r = "10:00 PM - 11:00 PM"
+    # Switch to False to see the bot work
+    headless = True
     # Input Details END
 
     # User Input Error Handling
@@ -106,7 +114,7 @@ def main():
         pass
 
     # register!
-    register(netlinkid, password, day_r, time_r)
+    register(netlinkid, password, day_r, time_r, headless)
 
 
 if __name__ == '__main__':
