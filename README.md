@@ -8,5 +8,3 @@
 ## Steps:
 * Between lines 77-85 in the input details section, enter your details.
 * Run register.py
-
-Note: GUI is disabled, to enable
