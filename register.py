@@ -47,7 +47,7 @@ def register(username, password, day_r, time_r):
         driver.find_element(By.XPATH,
                             f'//section[@class="list-group"]/div/div/div[@data-instance-times="{time_r}"]/div/div/button').click()
     except:
-        print("section has no spots available")
+        print("Section has no spots available")
         driver.close()
         exit(0)
 
@@ -63,7 +63,7 @@ def register(username, password, day_r, time_r):
     # confirm checkout
     driver.find_element(By.ID, '//*[@id="CheckoutModal"]/div/div/div/button[text()="Checkout"]').click()
 
-    time.sleep(1000)
+    driver.close()
 
 
 def main():
