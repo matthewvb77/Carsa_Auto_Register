@@ -106,7 +106,7 @@ def main():
         pass
 
     # register!
-    register(username, password, day_r, time_r)
+    register(netlinkid, password, day_r, time_r)
 
 
 if __name__ == '__main__':
