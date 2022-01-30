@@ -5,6 +5,7 @@
 * No background loop, process just sleeps until the slot is open.
 
 
-### Steps:
+### To Use:
+* Clone Repository
 * Change details in "Input Details" section to your own   (lines 77 - 85)
 * Run register.py
