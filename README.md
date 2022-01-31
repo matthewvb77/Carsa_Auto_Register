@@ -6,7 +6,10 @@
 
 
 ### To Use:
-* Clone Repository with '''git clone <enter your url>'''
+* Clone Repository with:
+'''
+git clone <enter your url>
+'''
 * Change details in "Input Details" section to your own   (lines 36 - 43)
 * Run register.py
 * Once slot is successfully booked, carsa will send you a confirmation email.
