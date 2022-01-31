@@ -25,7 +25,8 @@
     	# Input Details END
 	```
 4. Run it! \
-	```$ ./register.py``` \
+	```$ ./register.py```
+	
 PS: Once slot is successfully booked, carsa will send you a confirmation email.
 
 [1]: https://www.youtube.com/watch?v=dz59GsdvUF8
