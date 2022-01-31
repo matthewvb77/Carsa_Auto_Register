@@ -5,7 +5,7 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.chrome.options import Options
 
 import time
-from datetime import datetime
+from datetime import datetime, timedelta
 
 # Global Variables
 days = {"Monday": 1, "Tuesday": 2, "Wednesday": 3, "Thursday": 4, "Friday": 5, "Saturday": 6, "Sunday": 7}
@@ -18,70 +18,28 @@ weekend_times = ["7:00 AM - 8:45 AM", "9:00 AM - 10:45 AM", "11:00 AM - 12:45 PM
                  "3:00 PM - 4:45 PM", "5:00 PM - 6:45 PM", "7:00 PM - 8:45 PM"]
 
 
-def register(username, password, day_r, time_r, headless):
-    if headless:
-        options = Options()
-        options.add_argument('--headless')
-        options.add_argument('--disable-gpu')
-        driver = webdriver.Chrome(options=options)
+def wait_and_click(driver, id_type, id_path):
+    WebDriverWait(driver, 10).until(EC.element_to_be_clickable((id_type, id_path)))
+    driver.find_element(id_type, id_path).click()
+
+
+def wait_until(instant, buffer=0):
+    seconds_to_wait = (instant - datetime.now()).total_seconds()
+    if seconds_to_wait > 0:
+        time.sleep(seconds_to_wait + buffer)
     else:
-        driver = webdriver.Chrome()
-
-    driver.get("https://activeliving.uvic.ca/Program/GetProducts?classification=f3a12a34-c536-4b62-b9dc-c1f09c41e8b0")
-
-    # accept cookie popup
-    driver.find_element(By.ID, 'gdpr-cookie-accept').click()
-
-    # click 'login' button
-    driver.find_element(By.ID, 'loginLink').click()
-
-    # click 'netlink id' option
-    netlink_btn_xpath = '//div/button[@title="Sign In for UVic Students, Faculty & Staff"]'
-    WebDriverWait(driver, 5).until(EC.visibility_of_element_located((By.XPATH, netlink_btn_xpath)))
-    driver.find_element(By.XPATH, netlink_btn_xpath).click()
-
-    # enter credentials and log in
-    driver.find_element(By.ID, 'username').send_keys(username)
-    driver.find_element(By.ID, 'password').send_keys(password)
-    driver.find_element(By.ID, 'form-submit').click()
-
-    # click which day
-    driver.find_element(By.XPATH, f'//div[@id="list-group"]/a[{days[day_r]}]').click()
-
-    # click register (if button exists)
-    try:
-        driver.find_element(By.XPATH,
-                            f'//section[@class="list-group"]/div/div/div[@data-instance-times="{time_r}"]/div/div/button').click()
-    except:
-        print("Section has no spots available")
-        driver.close()
-        exit(0)
-
-    WebDriverWait(driver, 5).until(
-        EC.visibility_of_element_located((By.XPATH, '//*[@id="TopBarRight"]/div[2]/a/span[2]')))
-
-    # go to cart
-    driver.get("https://activeliving.uvic.ca/Cart")
-
-    # click checkout
-    driver.find_element(By.ID, 'checkoutButton').click()
-
-    # confirm checkout
-    driver.find_element(By.ID, '//*[@id="CheckoutModal"]/div/div/div/button[text()="Checkout"]').click()
-
-    driver.close()
+        # instant already passed!
+        pass
 
 
 def main():
-
     # Input Details START
     netlinkid = "example_netlink"
-    password = "example-password"
-    day_r = "Friday"
+    password = "example_password"
+    day_r = "Wednesday"
     date_r = "dd-mm-yyyy"
-    time_r = "10:00 PM - 11:00 PM"
-    # Switch to False to see the bot work
-    headless = True
+    time_r = "6:00 PM - 7:45 PM"
+    headless = True    # Switch to False to see the bot work
     # Input Details END
 
     # User Input Error Handling
@@ -93,28 +51,75 @@ def main():
         exit(0)
 
     # add 0 padding to time
-    if time_r[2] == ":":
-        time_r = "0" + time_r
-
-    # format datetime
-    datetime_str = date_r + " " + time_r[0:8]
+    if time_r[1] == ":":
+        datetime_str = date_r + " " + "0" + time_r[0:7]
+    else:
+        datetime_str = date_r + " " + time_r[0:8]
 
     # convert to datetime object
     slot_time = datetime.strptime(datetime_str, "%d-%m-%Y %I:%M %p")
 
     # find time to register (3 days before slot)
-    register_time = slot_time.timedelta(hours=72)
+    register_time = slot_time - timedelta(hours=72)
 
-    # wait until reset with 30 second buffer
-    seconds_to_wait = (register_time - datetime.now()).total_seconds()
-    if seconds_to_wait > 0:
-        time.sleep(seconds_to_wait + 30)
+    # wait until 30 sec before registering
+    wait_until(register_time, buffer=-30)
+
+    # start registering!
+    if headless:
+        options = Options()
+        options.add_argument('--headless')
+        options.add_argument('--disable-gpu')
+        driver = webdriver.Chrome(options=options)
     else:
-        # slots are already open!
-        pass
+        driver = webdriver.Chrome()
 
-    # register!
-    register(netlinkid, password, day_r, time_r, headless)
+    driver.get("https://activeliving.uvic.ca/Program/GetProducts?classification=f3a12a34-c536-4b62-b9dc-c1f09c41e8b0")
+
+    # accept cookie popup
+    wait_and_click(driver, By.ID, 'gdpr-cookie-accept')
+
+    # click 'login' button
+    wait_and_click(driver, By.ID, 'loginLink')
+
+    # click 'netlink id' option
+    wait_and_click(driver, By.XPATH, '//div/button[@title="Sign In for UVic Students, Faculty & Staff"]')
+
+    # enter credentials and log in
+    WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.ID, 'username')))
+    driver.find_element(By.ID, 'username').send_keys(netlinkid)
+    WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.ID, 'password')))
+    driver.find_element(By.ID, 'password').send_keys(password)
+    wait_and_click(driver, By.ID, 'form-submit')
+
+    # click which day
+    wait_and_click(driver, By.XPATH, f'//div[@id="list-group"]/a[{days[day_r]}]')
+
+    # wait until registration time, then refresh
+    wait_until(register_time, buffer=1)
+    driver.refresh()
+
+    # click register (if button exists)
+    try:
+        wait_and_click(driver, By.XPATH,
+                       f'//section[@class="list-group"]/div/div/div[@data-instance-times="{time_r}"]/div/div/button')
+
+    except:
+        print("No spots available")
+        driver.quit()
+        exit(0)
+
+    WebDriverWait(driver, 10).until(
+        EC.visibility_of_element_located((By.XPATH, '//*[@id="TopBarRight"]/div[2]/a/span[2]')))
+
+    # go to cart
+    driver.get("https://activeliving.uvic.ca/Cart")
+
+    # click checkout
+    wait_and_click(driver, By.ID, 'checkoutButton')
+    wait_and_click(driver, By.XPATH, '//*[@id="CheckoutModal"]/div/div/div/button[text()="Checkout"]')
+
+    driver.quit()
 
 
 if __name__ == '__main__':
