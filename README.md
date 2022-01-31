@@ -26,6 +26,6 @@
 	```
 4. Run it! \
 	```$ ./register.py```
-5. Once slot is successfully booked, carsa will send you a confirmation email.
+PS: Once slot is successfully booked, carsa will send you a confirmation email.
 
 [1]: https://www.youtube.com/watch?v=dz59GsdvUF8
