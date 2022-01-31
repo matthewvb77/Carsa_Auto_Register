@@ -2,11 +2,12 @@
 
 ### To Use:
 1. Install chromedriver ([guide][1])
+
 2. Clone Repository: \
 	```$ git clone <url>```
 3. Install dependencies: \
 	```$ pip3 install -r requirements.txt```
-3. Change details in "Input Details" section to your own   (lines 36 - 43)
+4. Change details in "Input Details" section to your own   (lines 36 - 43)
 	```
 	def main():
     	# Input Details START
@@ -18,7 +19,7 @@
     	headless = True    # Switch to False to see the bot work
     	# Input Details END
 	```
-4. Run it! \
+5. Run it! \
 	```$ ./register.py```
 	
 PS: Once slot is successfully booked, carsa will send you a confirmation email.
