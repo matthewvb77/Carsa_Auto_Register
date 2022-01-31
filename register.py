@@ -34,11 +34,11 @@ def wait_until(instant, buffer=0):
 
 def main():
     # Input Details START
-    netlinkid = "example_netlink"
+    netlinkid = "example_netlinkid"
     password = "example_password"
     day_r = "Wednesday"
     date_r = "dd-mm-yyyy"
-    time_r = "6:00 PM - 7:45 PM"
+    time_r = "5:00 PM - 6:45 PM"
     headless = True    # Switch to False to see the bot work
     # Input Details END
 
@@ -118,6 +118,13 @@ def main():
     # click checkout
     wait_and_click(driver, By.ID, 'checkoutButton')
     wait_and_click(driver, By.XPATH, '//*[@id="CheckoutModal"]/div/div/div/button[text()="Checkout"]')
+
+    # click add to cart
+    wait_and_click(driver, By.XPATH, '//form/div/button[@type="submit"]')
+
+    wait_and_click(driver, By.ID, 'checkoutButton')
+
+    wait_and_click(driver, By.XPATH, '//div[@class="modal-footer"]/button[text()="Checkout"]')
 
     driver.quit()
 
