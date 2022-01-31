@@ -9,3 +9,4 @@
 * Clone Repository
 * Change details in "Input Details" section to your own   (lines 77 - 85)
 * Run register.py
+* Once slot is successfully booked, carsa will send you a confirmation email.
