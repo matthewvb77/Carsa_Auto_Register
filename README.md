@@ -1,10 +1,9 @@
 # Carsa_Auto_Register
 
 ### To Use:
-1. Clone Repository: \
+1. Install chromedriver ([guide][1])
+2. Clone Repository: \
 	```$ git clone <url>```
-
-2. Install chromedriver ([guide][1])
 3. Install dependencies: \
 	```$ pip3 install -r requirements.txt```
 3. Change details in "Input Details" section to your own   (lines 36 - 43)
