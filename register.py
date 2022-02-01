@@ -130,6 +130,9 @@ def main():
     wait_and_click(driver, By.XPATH, '//form/div/button[@type="submit"]')
 
     wait_and_click(driver, By.ID, 'checkoutButton')
+    
+    # At this point the slot is reserved, wait 3 min for server request storm to calm down
+    time.sleep(180)
 
     wait_and_click(driver, By.XPATH, '//div[@class="modal-footer"]/button[text()="Checkout"]')
 
