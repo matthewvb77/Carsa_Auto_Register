@@ -116,11 +116,29 @@ def main():
         driver.quit()
         exit(0)
 
-    WebDriverWait(driver, 10).until(
-        EC.visibility_of_element_located((By.XPATH, '//*[@id="TopBarRight"]/div[2]/a/span[2]')))
+    try:
+        WebDriverWait(driver, 10).until(
+            EC.visibility_of_element_located((By.XPATH, '//*[@id="TopBarRight"]/div[2]/a/span[text()="1"]')))
+    except:
+        print("Looks like there might be something else in your cart! Exitting to avoid accidental payment")
+        driver.quit()
+        exit(0)
 
     # go to cart
     driver.get("https://activeliving.uvic.ca/Cart")
+
+    try:
+        WebDriverWait(driver, 10).until(
+            EC.visibility_of_element_located((By.ID, 'ShoppingCartItems')))
+        # check theres only one item in the cart
+        assert len(driver.find_elements(By.XPATH, '//div[@id="ShoppingCartItems"]/div/div/table/tbody/tr')) == 1
+        item_total = driver.find_element(By.XPATH, '//div[@id="ShoppingCartItems"]/div/div/table/tbody/tr/td[5]/span')\
+            .text
+        assert item_total == '$0.00'
+    except:
+        print("Cart Error: More than 1 item in cart or total != $0.00")
+        driver.quit()
+        exit(0)
 
     # click checkout
     wait_and_click(driver, By.ID, 'checkoutButton')
@@ -130,7 +148,7 @@ def main():
     wait_and_click(driver, By.XPATH, '//form/div/button[@type="submit"]')
 
     wait_and_click(driver, By.ID, 'checkoutButton')
-    
+
     # At this point the slot is reserved, wait 3 min for server request storm to calm down
     time.sleep(180)
 
