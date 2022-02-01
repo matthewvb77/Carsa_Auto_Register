@@ -5,6 +5,8 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.chrome.options import Options
 
 import time
+from tkinter import *
+from tkinter import messagebox
 from datetime import datetime, timedelta
 
 # Global Variables
@@ -36,20 +38,25 @@ def main():
     # Input Details START
     netlinkid = "example_netlinkid"
     password = "example_password"
-    day_r = "Wednesday"
+    day_r = "Thursday"
     date_r = "dd-mm-yyyy"
-    time_r = "5:00 PM - 6:45 PM"
+    time_r = "8:00 PM - 9:45 PM"
     headless = True    # Switch to False to see the bot work
     # Input Details END
 
+    # tkinter must have root window, ours immediately dissapears
+    root = Tk()
+    root.withdraw()
+
     # User Input Error Handling
     if day_r not in days.keys():
-        print("Invalid day!")
+        messagebox.showerror('Error', f'Invalid Day: {day_r}')
         exit(0)
     if (day_r in weekdays and time_r not in weekday_times) or (day_r in weekends and time_r not in weekend_times):
-        print("Invalid time!")
+        messagebox.showerror('Error', f'Invalid Timeslot: {time_r}')
         exit(0)
 
+    messagebox.showinfo('Success!', 'Inputted date and time slot check out.')
     # add 0 padding to time
     if time_r[1] == ":":
         datetime_str = date_r + " " + "0" + time_r[0:7]
