@@ -38,10 +38,10 @@ def main():
     # Input Details START
     netlinkid = "example_netlinkid"
     password = "example_password"
-    day_r = "Thursday"
-    date_r = "dd-mm-yyyy"
-    time_r = "8:00 PM - 9:45 PM"
-    headless = True    # Switch to False to see the bot work
+    day_r = "Thursday"              # day of time slot
+    date_r = "dd-mm-yyyy"           # date of time slot
+    time_r = "8:00 PM - 9:45 PM"    # time slot
+    headless = True                 # Switch to False to see the bot work
     # Input Details END
 
     # tkinter must have root window, ours immediately dissapears
