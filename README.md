@@ -20,7 +20,7 @@
     	# Input Details END
 	```
 5. Run it! \
-	```$ ./register.py```
+	```$ python3 register.py```
 	
 PS: Once slot is successfully booked, carsa will send you a confirmation email.
 
