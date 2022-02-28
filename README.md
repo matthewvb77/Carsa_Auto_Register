@@ -2,7 +2,7 @@
 Disclaimer: This is purely for educational purposes and may violate CARSA's Terms of Service.
 
 ## Description:
-* Bot that when run, will wait until a specified CARSA gym slot opens, and automatically register you for it.
+* Bot that when run, will wait until a specified CARSA gym slot opens, and automatically register for it.
 
 ### Get Started:
 1. Install chromedriver ([guide][1])
@@ -11,7 +11,7 @@ Disclaimer: This is purely for educational purposes and may violate CARSA's Term
 	```$ git clone <url>```
 3. Install dependencies: \
 	```$ pip3 install -r requirements.txt```
-4. Change details in "Input Details" section to your own   (lines 36 - 43)
+4. Change details in "Input Details" section (lines 36 - 43)
 	```
 	def main():
     	# Input Details START
@@ -26,6 +26,6 @@ Disclaimer: This is purely for educational purposes and may violate CARSA's Term
 5. Run \
 	```$ python3 register.py```
 	
-PS: Once slot is successfully booked, carsa will send you a confirmation email.
+PS: Once slot is successfully booked, carsa will send a confirmation email.
 
 [1]: https://www.youtube.com/watch?v=dz59GsdvUF8
