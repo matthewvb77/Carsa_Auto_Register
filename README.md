@@ -1,6 +1,10 @@
 # Carsa_Auto_Register
+Disclaimer: This is purely for educational purposes and may violate CARSA's Terms of Service.
 
-### To Use:
+## Description:
+* Bot that when run, will wait until a specified CARSA gym slot opens, and automatically register you for it.
+
+### Get Started:
 1. Install chromedriver ([guide][1])
 
 2. Clone Repository: \
