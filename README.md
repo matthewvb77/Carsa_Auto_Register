@@ -23,7 +23,7 @@ Disclaimer: This is purely for educational purposes and may violate CARSA's Term
     	headless = True    # Switch to False to see the bot work
     	# Input Details END
 	```
-5. Run it! \
+5. Run \
 	```$ python3 register.py```
 	
 PS: Once slot is successfully booked, carsa will send you a confirmation email.
