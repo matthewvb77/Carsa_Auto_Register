@@ -1,5 +1,5 @@
 # Carsa_Auto_Register
-Disclaimer: This is purely for educational purposes and may violate CARSA's Terms of Service.
+Disclaimer: This is purely for educational purposes and running it may violate CARSA's Terms of Service.
 
 ## Description:
 * Bot that when run, will wait until a specified CARSA gym slot opens, and automatically register for it.
